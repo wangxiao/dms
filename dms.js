@@ -1,5 +1,5 @@
 const list = [
-  '这个杀手不太冷',
+  '阿凡达',
   '肖申克的救赎',
 ];
 
@@ -18,7 +18,7 @@ const searchMovie = (name) => new Promise((resolve) => {
   };
 
   const check = () => {
-    if ($('#root').find('.hplSBc').length) {
+    if ($('#root').find('.sc-ifAKCX').length) {
       resolve();
     } else {
       if (maxTimes) {
@@ -35,7 +35,7 @@ const searchMovie = (name) => new Promise((resolve) => {
 
 const getMovieUrl = () => new Promise((resolve, reject) => {
   const getUrl = () => {
-    const dom = $('#root').find('a').eq(0);
+    const dom = $('#root').find('.sc-ifAKCX').eq(0).find('a').eq(0);
     if (dom) {
       resolve(dom.attr('href'));
     } else {
@@ -101,9 +101,11 @@ const getMovieData = () => new Promise((resolve, reject) => {
   };
 
   const o = getData();
-  setTimeout(resolve(o), 1000);
-  results.push(o);
-  window.localSorage.setItem('wangxiao-data', results);
+  setTimeout(() => {
+    resolve(o);
+    results.push(o);
+    window.localSorage.setItem('wangxiao-data', results);
+  }, 1000);
 });
 
 const main = () => {
@@ -121,7 +123,10 @@ const main = () => {
         index ++;
         spider(list[index]);
       } else {
-        console.log(results);
+        console.error('蔡蔚，下面是你要的数据，直接复制：');
+        console.error('----------------------------------');
+        console.log(JSON.stringify(results));
+        console.error('----------------------------------');
       }
     });
   };
